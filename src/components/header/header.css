@@ -1,0 +1,19 @@
+header {
+  background-color: #ffffff;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px 0 25px;
+  border-bottom: 3px solid #f8f8f8;
+  border-top: 3px solid #f8f8f8;
+  font-weight: 600;
+}
+
+.logo {
+  height: 28px;
+}
+
+/* #83183D */
+/* #C5223F */

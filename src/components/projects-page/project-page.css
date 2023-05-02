@@ -1,0 +1,50 @@
+.project-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid #f8f8f8;
+  border-left: 3px solid #f8f8f8;
+  background-color: white;
+  height: 50px;
+}
+
+.project-menu div {
+  margin: 0 20px 0 20px;
+}
+
+.project-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid #f8f8f8;
+  border-left: 3px solid #f8f8f8;
+  background-color: white;
+  height: 60px;
+}
+
+.project-list h5 {
+  margin: 0 20px 0 20px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 120px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-weight: 700;
+  color: rgb(69, 71, 77);
+}
+
+.button:hover {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #83183d;
+}

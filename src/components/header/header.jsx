@@ -1,4 +1,5 @@
-import "./header.css";
+import "./header.scss";
+import SignInLogIn from "../sign-in-log-in/sign-in-log-in";
 
 function Header() {
   const today = new Date();
@@ -14,10 +15,10 @@ function Header() {
       </div>
       <div>{formattedDate}</div>
       <div>
-        <input type="input" value="search" />
+        <input type="input" placeholder="search" />
       </div>
       <div>Messages</div>
-      <div>log-in</div>
+      <SignInLogIn />
     </header>
   );
 }

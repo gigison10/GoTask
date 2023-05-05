@@ -1,4 +1,4 @@
-import "./side-menu.css";
+import "./side-menu.scss";
 import {
   ProjectIcon,
   TaskIcon,

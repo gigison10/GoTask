@@ -41,7 +41,8 @@ aside {
   transition: all 0.3s ease;
 }
 
-.menu-categories a:visited {
+.menu-categories a:visited,
+.menu-categories a:active {
   color: rgb(69, 71, 77);
 }
 

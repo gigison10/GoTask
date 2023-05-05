@@ -1,4 +1,4 @@
-import "./side-menu-content.css";
+import "./side-menu-content.scss";
 import ProjectPage from "../projects-page/project-page";
 
 function SideMenuContent() {

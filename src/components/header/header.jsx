@@ -1,5 +1,6 @@
 import "./header.scss";
-import SignInLogIn from "../sign-in-log-in/sign-in-log-in";
+import LogIn from "../log-in/log-in";
+import SignUp from "../sign-up/sign-up";
 
 function Header() {
   const today = new Date();
@@ -13,12 +14,15 @@ function Header() {
       <div>
         <img className="logo" src={require("../../assets/Logo.png")} />
       </div>
-      <div>{formattedDate}</div>
+      <div>Today : {formattedDate}</div>
       <div>
         <input type="input" placeholder="search" />
       </div>
       <div>Messages</div>
-      <SignInLogIn />
+      <div className="signInLogInContainer">
+        <LogIn />
+        <SignUp />
+      </div>
     </header>
   );
 }

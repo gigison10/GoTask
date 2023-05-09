@@ -1,6 +1,6 @@
 .project-field {
   display: grid;
-  grid-template-columns: 1fr 10fr 10fr 10fr 10fr;
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr;
   /* justify-content: center; */
   /* align-items: center; */
   text-align: center;
@@ -18,7 +18,7 @@
   /* text-align: center; */
 }
 
-/* .check {
+.check {
   margin-top: 10px;
   height: 20px;
-} */
+}

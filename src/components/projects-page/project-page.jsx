@@ -20,6 +20,8 @@ function ProjectPage() {
     <div className="project-container">
       <div className="project-menu">
         <div>sort by</div>
+        <div>sort by</div>
+        <div>sort by</div>
         <div>something</div>
         {/* <div className="button">Add project</div> */}
       </div>

@@ -1,10 +1,11 @@
 import "./sign-up.scss";
+import { X } from "../../assets/icons.jsx";
+
 import { Fragment, useState, useEffect, useRef } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase-utils";
-import { X } from "../../assets/icons.jsx";
 
 const defaultFormFields = {
   fullName: "",
@@ -18,29 +19,8 @@ function SignUp() {
   const [showHide, setShowHide] = useState("hide");
   const [signUp, setSignUp] = useState("Sign-up");
 
-  //////////////////////////////////////////////////////
-
-  let popupRef = useRef();
-  useEffect(() => {
-    let handler = (e) => {
-      // console.log(popupRef.current.contains(e.target));
-      if (!popupRef.current.contains(e.target)) {
-        setShowHide("hide");
-      }
-    };
-    document.addEventListener("mousedown", handler);
-
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  });
-
-  ////////////////////////////////////////////////////////
-
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { fullName, email, phone, password, confirmPassword } = formFields;
-
-  // console.log(formFields);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -48,6 +28,7 @@ function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (password !== confirmPassword) {
       alert("incorect confirm password");
       return;
@@ -75,6 +56,21 @@ function SignUp() {
     setFormFields({ ...formFields, [name]: value });
   }
 
+  ////////////popup window////////////////////////////
+  let popupRef = useRef();
+  useEffect(() => {
+    let handler = (e) => {
+      // console.log(popupRef.current.contains(e.target));
+      if (!popupRef.current.contains(e.target)) {
+        setShowHide("hide");
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+
   function popup() {
     if (showHide === "hide") {
       setShowHide("show");
@@ -82,6 +78,7 @@ function SignUp() {
       setShowHide("hide");
     }
   }
+  ////////////////////////////////////////////////////////
 
   return (
     <Fragment>

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import "./project-add.scss";
 
 function ProjectAdd(props) {
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [startingDate, setStartingDate] = useState("");
   const [deadLine, setDeadLine] = useState("");
-
   const [button, setButton] = useState("Add Project");
   const [showHide, setShowHide] = useState("hide");
+
   function showHideFunc() {
     if (button === "Add Project") {
       setShowHide("show");
@@ -20,16 +20,17 @@ function ProjectAdd(props) {
     event.preventDefault();
     if (showHide === "hide") {
       const projectDetails = {
-        name: name,
-        date: date,
+        projectName: projectName,
+        startingDate: startingDate,
         deadLine: deadLine,
       };
       // console.log(projectDetails);
       props.onSaveProjectDetails(projectDetails);
-      setName("");
-      setDate("");
+      setProjectName("");
+      setStartingDate("");
       setDeadLine("");
     } else return;
+    // console.log("check");
   }
 
   return (
@@ -39,11 +40,11 @@ function ProjectAdd(props) {
         <input
           className={showHide}
           required
-          value={name}
+          value={projectName}
           type="text"
           placeholder="Project name"
           onChange={(event) => {
-            setName(event.target.value);
+            setProjectName(event.target.value);
           }}
         />
       </div>
@@ -51,11 +52,11 @@ function ProjectAdd(props) {
         <h4>Starting date</h4>
         <input
           className={showHide}
-          value={date}
+          value={startingDate}
           type="date"
           placeholder="Date"
           onChange={(event) => {
-            setDate(event.target.value);
+            setStartingDate(event.target.value);
           }}
         ></input>
       </div>

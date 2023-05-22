@@ -1,10 +1,10 @@
 import "./projectField.scss";
 
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
 
 function ProjectField(props) {
   // const [projectDetails, setProjectDetails] = useState([]);
-  console.log(...props.projectDetails);
+
   return (
     <Fragment>
       {props.projectDetails.map((data) => (

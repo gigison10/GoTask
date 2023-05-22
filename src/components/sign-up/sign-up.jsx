@@ -1,6 +1,5 @@
 import "./sign-up.scss";
 import { X } from "../../assets/icons.jsx";
-
 import { Fragment, useState, useEffect, useRef } from "react";
 import {
   createAuthUserWithEmailAndPassword,
@@ -18,28 +17,26 @@ const defaultFormFields = {
 function SignUp() {
   const [showHide, setShowHide] = useState("hide");
   const [signUp, setSignUp] = useState("Sign-up");
-
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { fullName, email, phone, password, confirmPassword } = formFields;
 
+  // form imputs reset ////////
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
+  //       Sign in         ////////
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (password !== confirmPassword) {
       alert("incorect confirm password");
       return;
     }
-
     try {
       const { user } = await createAuthUserWithEmailAndPassword(
         email,
         password
       );
-
       await createUserDocumentFromAuth(user, { fullName });
       resetFormFields();
     } catch (error) {

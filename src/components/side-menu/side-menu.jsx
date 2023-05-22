@@ -12,19 +12,19 @@ function SideMenu() {
       <span className="menu-text">Menu</span>
       <div className="menu-categories">
         <ProjectIcon />
-        <a href="#">Projects</a>
+        <h4>Projects</h4>
       </div>
       <div className="menu-categories">
         <TaskIcon />
-        <a href="#">My Tasks</a>
+        <h4>My Tasks</h4>
       </div>
       <div className="menu-categories">
         <MessagesIcon />
-        <a href="#">Messages</a>
+        <h4>Messages</h4>
       </div>
       <div className="menu-categories">
         <Calendar />
-        <a href="#">Calendar</a>
+        <h4>Calendar</h4>
       </div>
     </aside>
   );

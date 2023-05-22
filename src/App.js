@@ -1,19 +1,11 @@
-import "./App.scss";
-import Header from "./components/header/header";
-import SideMenu from "./components/side-menu/side-menu";
-import SideMenuContent from "./components/side-menu-content/side-menu-content";
-import Footer from "./components/footer/footer";
+import { Routes, Route } from "react-router-dom";
+import Home from "./routes/home/home";
 
 function App() {
   return (
-    <div className="container">
-      <Header />
-      <main className="hero-section">
-        <SideMenu />
-        <SideMenuContent />
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 }
 

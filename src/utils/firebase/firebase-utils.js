@@ -55,7 +55,7 @@ export const createUserDocumentFromAuth = async (
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
-  console.log(userSnapshot);
+  // console.log(userSnapshot);
   // console.log(userSnapshot.exists());
 
   // user data does not exists
@@ -105,8 +105,6 @@ onAuthStateChanged(auth, async (user) => {
     userId = user.uid;
     const userDocRef = doc(db, "users", userId);
     const projectsRef = collection(userDocRef, "projects");
-    // console.log("user logged in");
-    // console.log(projects);
 
     try {
       const snapshot = await getDocs(projectsRef);
@@ -123,4 +121,26 @@ onAuthStateChanged(auth, async (user) => {
     // console.log("no user logged in");
   }
 });
-// console.log(projects);
+
+export const updateProjects = async (e) => {
+  // projects = [];
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      userId = user.uid;
+      const userDocRef = doc(db, "users", userId);
+      const projectsRef = collection(userDocRef, "projects");
+      const projectDocRef = doc(projectsRef, e);
+
+      try {
+        const snapshot = await getDoc(projectDocRef); // Use getDoc instead of getDocs for a single document
+        if (snapshot.exists()) {
+          projects.push(snapshot.data());
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    } else {
+      projects = [];
+    }
+  });
+};

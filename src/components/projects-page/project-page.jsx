@@ -1,21 +1,28 @@
 import "./project-page.scss";
 import { db } from "../../utils/firebase/firebase-utils";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 
 import { useState, useContext, useEffect } from "react";
 import ProjectAdd from "../projectAdd-field/project-add";
 import ProjectField from "../projectField/projectField";
-import { ProjectsContext, UserContext } from "../../contexts/context";
+import {
+  ProjectsContext,
+  UserContext,
+  updateProjectsContext,
+} from "../../contexts/context";
 
 function ProjectPage() {
   const [projectDetails, setProjectDetails] = useState([]);
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const [userId, setUserId] = useState("");
   const { currentProject } = useContext(ProjectsContext);
+  const { setUpdateCurrentProjects } = useContext(updateProjectsContext);
+
+  let [rerender, setRerender] = useState(1);
 
   useEffect(() => {
     userCheck();
-  }, [currentUser]);
+  }, [currentUser, rerender]);
 
   function userCheck() {
     if (currentUser) {
@@ -38,6 +45,7 @@ function ProjectPage() {
         deadLine: e.deadLine,
       }))
     );
+    setCurrentUser(currentUser);
   }
 
   function onSaveProjectDetailsHandler(inputProjectDetails) {
@@ -53,17 +61,18 @@ function ProjectPage() {
           collection(db, `users/${userId}/projects`),
           projectData
         );
-        // console.log("Project created with ID:", docRef.id);
+
+        setUpdateCurrentProjects(docRef.id);
+        setRerender(rerender + 1);
+
+        // console.log("Project ID:", docRef.id);
       } catch (error) {
         console.error("Error creating project:", error);
       }
     };
     createProject();
-    // getProjects();
-    // console.log(inputProjectDetails.name);
   }
 
-  // console.log(projectDetails);
   return (
     <div className="project-container">
       <div className="project-menu">

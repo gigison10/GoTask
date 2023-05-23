@@ -10,15 +10,24 @@
   background-color: white;
   height: 40px;
   padding: 0 20px 0 20px;
-}
 
-.project-field h5 {
-  display: block;
-  margin: 10px 0 0 0;
-  /* text-align: center; */
-}
-
-.check {
-  margin-top: 10px;
-  height: 20px;
+  h5 {
+    display: block;
+    margin: 10px 0 0 0;
+    /* text-align: center; */
+  }
+  .ckeckBlock {
+    display: flex;
+  }
+  .check {
+    display: flex;
+    margin-top: 10px;
+    height: 20px;
+    width: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .deteButton {
+    margin: 10px;
+  }
 }

@@ -4,6 +4,7 @@ import {
   createUserDocumentFromAuth,
   onAuthStateChanged,
   projects,
+  updateProjects,
 } from "../utils/firebase/firebase-utils.js";
 //as the actual value that i want to acces
 
@@ -17,10 +18,15 @@ export const ProjectsContext = createContext({
   setCurrentProject: () => null,
 });
 
+export const updateProjectsContext = createContext({
+  setUpdateCurrentProjects: (e) => {
+    updateProjects(e);
+  },
+});
+
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
-
   const [currentProject, setCurrentProject] = useState(projects);
   const projectsValue = { currentProject, setCurrentProject };
 
@@ -36,9 +42,10 @@ export const UserProvider = ({ children }) => {
       }
       setCurrentUser(user);
     });
+    // console.log(currentProject);
 
     return unsubscribe;
-  }, [currentUser]);
+  }, [currentUser, projects]);
 
   return (
     <ProjectsContext.Provider value={projectsValue}>

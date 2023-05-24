@@ -21,6 +21,7 @@ export const ProjectsContext = createContext({
 export const updateProjectsContext = createContext({
   setUpdateCurrentProjects: (e) => {
     updateProjects(e);
+    console.log("update works");
   },
 });
 
@@ -29,10 +30,9 @@ export const UserProvider = ({ children }) => {
   const value = { currentUser, setCurrentUser };
   const [currentProject, setCurrentProject] = useState(projects);
   const projectsValue = { currentProject, setCurrentProject };
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
-    // console.log("context useEffect");
-
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocumentFromAuth(user);
@@ -42,10 +42,9 @@ export const UserProvider = ({ children }) => {
       }
       setCurrentUser(user);
     });
-    // console.log(currentProject);
 
     return unsubscribe;
-  }, [currentUser, projects]);
+  }, [currentUser, projects, updateProjects]);
 
   return (
     <ProjectsContext.Provider value={projectsValue}>

@@ -124,13 +124,14 @@ onAuthStateChanged(auth, async (user) => {
 
 export const updateProjects = async (e) => {
   // projects = [];
+  console.log(projects);
+
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       userId = user.uid;
       const userDocRef = doc(db, "users", userId);
       const projectsRef = collection(userDocRef, "projects");
       const projectDocRef = doc(projectsRef, e);
-
       try {
         const snapshot = await getDoc(projectDocRef); // Use getDoc instead of getDocs for a single document
         if (snapshot.exists()) {
@@ -139,7 +140,23 @@ export const updateProjects = async (e) => {
       } catch (err) {
         console.log(err.message);
       }
-    } else {
+    }
+
+    // if (e === "delete") {
+    //   console.log("e delete");
+
+    //   try {
+    //     const snapshot = await getDoc(projectDocRef);
+    //     if (snapshot.exists()) {
+    //       projects.push(snapshot.data());
+    //       console.log("aftersnapsht");
+    //     }
+    //   } catch (err) {
+    //     console.log(err.message);
+    //   }
+    // }
+    ////////////
+    else {
       projects = [];
     }
   });

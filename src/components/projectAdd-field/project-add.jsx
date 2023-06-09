@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import "./project-add.scss";
 
 function ProjectAdd(props) {

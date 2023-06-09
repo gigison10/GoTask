@@ -123,9 +123,6 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 export const updateProjects = async (e) => {
-  // projects = [];
-  console.log(projects);
-
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       userId = user.uid;
@@ -140,23 +137,7 @@ export const updateProjects = async (e) => {
       } catch (err) {
         console.log(err.message);
       }
-    }
-
-    // if (e === "delete") {
-    //   console.log("e delete");
-
-    //   try {
-    //     const snapshot = await getDoc(projectDocRef);
-    //     if (snapshot.exists()) {
-    //       projects.push(snapshot.data());
-    //       console.log("aftersnapsht");
-    //     }
-    //   } catch (err) {
-    //     console.log(err.message);
-    //   }
-    // }
-    ////////////
-    else {
+    } else {
       projects = [];
     }
   });

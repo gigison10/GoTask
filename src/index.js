@@ -5,12 +5,12 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import "./index.scss";
-import { UserContext, UserProvider } from "./contexts/context";
+import { UserProvider } from "./contexts/context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/GoTask">
       <UserProvider>
         <App />
       </UserProvider>

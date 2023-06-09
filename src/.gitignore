@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/node_modules/.cache/default-development
 /.pnp
 .pnp.js
 

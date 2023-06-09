@@ -1,7 +1,6 @@
 import "./log-in.scss";
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase-utils";
 

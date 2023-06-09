@@ -1,5 +1,5 @@
 import "./header.scss";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import LogIn from "../log-in/log-in";
 import SignUp from "../sign-up/sign-up";
 import { UserContext } from "../../contexts/context";

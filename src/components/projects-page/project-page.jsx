@@ -19,9 +19,8 @@ function ProjectPage() {
   const { setUpdateCurrentProjects } = useContext(updateProjectsContext);
   const [rerender, setRerender] = useState(1);
 
-  console.log(projectDetails);
+  // console.log(projectDetails);
   async function deleteProject(projectId) {
-    console.log(projectId);
     try {
       const projectDocRef = doc(db, `users/${userId}/projects/${projectId}`);
       await deleteDoc(projectDocRef);

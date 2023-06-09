@@ -2,7 +2,6 @@ import { createContext, useState, useEffect } from "react";
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
-  onAuthStateChanged,
   projects,
   updateProjects,
 } from "../utils/firebase/firebase-utils.js";
@@ -21,7 +20,7 @@ export const ProjectsContext = createContext({
 export const updateProjectsContext = createContext({
   setUpdateCurrentProjects: (e) => {
     updateProjects(e);
-    console.log("update works");
+    // console.log("update works");
   },
 });
 

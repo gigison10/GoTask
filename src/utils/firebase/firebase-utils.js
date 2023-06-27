@@ -1,4 +1,5 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, firebase } from "firebase/app";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import {
   getAuth,
@@ -17,6 +18,11 @@ import {
   getDocs,
   setDoc,
   collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  FieldValue,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -31,6 +37,20 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
+export const firestore = getFirestore();
+//////////////////
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth() + 1).padStart(2, "0");
+const day = String(now.getDate()).padStart(2, "0");
+const hours = String(now.getHours()).padStart(2, "0");
+const minutes = String(now.getMinutes()).padStart(2, "0");
+const seconds = String(now.getSeconds()).padStart(2, "0");
+const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+///////////////////////////////////////////////
+
+/////////////////////////////////////////////////
 export const auth = getAuth();
 export const db = getFirestore();
 let userId = "";
@@ -103,16 +123,9 @@ export let projects = [];
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     userId = user.uid;
-    const userDocRef = doc(db, "users", userId);
-    const projectsRef = collection(userDocRef, "projects");
 
     try {
-      const snapshot = await getDocs(projectsRef);
-      snapshot.docs.forEach((doc) => {
-        projects.push({
-          ...doc.data(),
-        });
-      });
+      // console.log(userId);
     } catch (err) {
       console.log(err.message);
     }
@@ -142,3 +155,88 @@ export const updateProjects = async (e) => {
     }
   });
 };
+
+//////////////////////////////////
+
+const apiEndpoint =
+  "https://firestore.googleapis.com/v1/projects/gotask-973a8/databases/(default)/documents/users/";
+
+export const apiSlice = createApi({
+  reducerPath: "api",
+  baseQuery: fetchBaseQuery({ baseUrl: apiEndpoint }),
+  tagTypes: ["Todos"],
+  endpoints: (builder) => ({
+    getTodos: builder.query({
+      query: () => {
+        console.log("get works");
+        return `/${userId}/projects?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`;
+      },
+      // serializeQueryArgs: ({ getTodos }) => {
+      //   return getTodos;
+      // },
+      providesTags: [
+        { type: "Todos", id: "onDetele" },
+        { type: "Todos", id: "onLoad" },
+      ],
+      // merge: (currentCache, newItems) => {
+      //   currentCache.push(...newItems);
+      //   return currentCache;
+      // },
+    }),
+
+    ////////////////////////////////////////////////////////
+    addTodo: builder.mutation({
+      query: async (todo) => {
+        let projectData = {
+          projectName: todo.projectName,
+          deadLine: todo.deadLine,
+          startingDate: todo.startingDate,
+          createdAt: formattedDate,
+        };
+        const docRef = await addDoc(
+          collection(db, `users/${userId}/projects`),
+          projectData
+        );
+
+        const projectDataWithId = {
+          ...projectData,
+          projectId: docRef.id,
+        };
+        const projectDocRef = await doc(
+          db,
+          `users/${userId}/projects/${docRef.id}`
+        );
+        setDoc(projectDocRef, projectDataWithId);
+      },
+      invalidatesTags: [{ type: "Todos", id: "onLoad" }],
+    }),
+
+    /////////////////////////////////////////////
+    updateTodo: builder.mutation({
+      query: (todo) => ({
+        url: `/todos/${todo.id}`,
+        method: "PATCH",
+        body: todo,
+      }),
+      invalidatesTags: ["Todos"],
+    }),
+
+    deleteTodo: builder.mutation({
+      query: (id) =>
+        // console.log(id),
+        ({
+          url: `/${userId}/projects/${id}?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`,
+          method: "DELETE",
+          // body: id,
+        }),
+      invalidatesTags: [{ type: "Todos", id: "onDetele" }],
+    }),
+  }),
+});
+
+export const {
+  useGetTodosQuery,
+  useAddTodoMutation,
+  useUpdateTodoMutation,
+  useDeleteTodoMutation,
+} = apiSlice;

@@ -6,98 +6,102 @@ import { useState, useContext, useEffect } from "react";
 import ProjectAdd from "../projectAdd-field/project-add";
 import ProjectField from "../projectField/projectField";
 import {
-  ProjectsContext,
+  // ProjectsContext,/
   UserContext,
-  updateProjectsContext,
+  // updateProjectsContext,
 } from "../../contexts/context";
+
+import {
+  useGetTodosQuery,
+  useAddTodoMutation,
+  useUpdateTodoMutation,
+  useDeleteTodoMutation,
+} from "../../utils/firebase/firebase-utils";
 
 function ProjectPage() {
   const [projectDetails, setProjectDetails] = useState([]);
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const [userId, setUserId] = useState("");
-  const { currentProject } = useContext(ProjectsContext);
-  const { setUpdateCurrentProjects } = useContext(updateProjectsContext);
+  const [userId, setUserId] = useState(false);
+  // const { currentProject } = useContext(ProjectsContext);
+  // const { setUpdateCurrentProjects } = useContext(updateProjectsContext);
   const [rerender, setRerender] = useState(1);
 
-  // console.log(projectDetails);
-  async function deleteProject(projectId) {
-    try {
-      const projectDocRef = doc(db, `users/${userId}/projects/${projectId}`);
-      await deleteDoc(projectDocRef);
+  /////////////////////////////////////////////
+  // const [newTodo, setNewTodo] = useState("");
+  // console.log(rerender);
+  const {
+    data: projects,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+    refetch,
+    // refetch,
+  } = useGetTodosQuery(currentUser, {
+    skip: !currentUser, // Enable the query when userId is truthy
+  });
 
-      setUpdateCurrentProjects("delete");
-      setRerender(rerender + 1);
-      console.log("Project deleted successfully");
-    } catch (error) {
-      console.error("Error deleting project:", error);
-    }
+  const [addTodo] = useAddTodoMutation();
+  const [updateTodo] = useUpdateTodoMutation();
+  const [deleteTodo] = useDeleteTodoMutation();
+  let content;
+  // Define conditional content
+  if (isLoading) {
+    // console.log("loading");
   }
+  if (isSuccess) {
+    // console.log("succes");
+  } else if (isError) {
+    console.log("error", error);
+  }
+
+  const todosQuery = useGetTodosQuery();
+
+  /////////////////////////////////////////////
 
   useEffect(() => {
-    userCheck();
-  }, [currentUser, rerender]);
+    console.log(projects);
+  }, [todosQuery]);
 
-  function userCheck() {
-    if (currentUser) {
-      setTimeout(() => {
-        getProjects();
-        setUserId(currentUser.uid);
-      }, "1500");
-    } else {
-      setProjectDetails([]);
-      return;
+  useEffect(() => {
+    if (currentUser && projects) {
+      setUserId(currentUser.uid);
+
+      let arr = [];
+      for (let i = 0; i < projects.documents.length; i++) {
+        // console.log("useEffect Rerender");
+        const obj = {
+          deadLine: projects.documents[i]?.fields?.deadLine?.stringValue || "",
+          projectId:
+            projects.documents[i]?.fields?.projectId?.stringValue || "",
+          projectName:
+            projects.documents[i]?.fields?.projectName?.stringValue || "",
+          startingDate:
+            projects.documents[i]?.fields?.startingDate?.stringValue || "",
+        };
+        arr.push(obj);
+      }
+      setProjectDetails(arr);
     }
-  }
-
-  function getProjects() {
-    setProjectDetails(
-      currentProject.map((e) => ({
-        projectId: e.projectId,
-        projectName: e.projectName,
-        startingDate: e.startingDate,
-        deadLine: e.deadLine,
-      }))
-    );
-    setCurrentUser(currentUser);
-  }
+  }, [currentUser, projects]);
+  //////////////////////////////////////////////////
+  useEffect(() => {
+    if (!currentUser) {
+      setProjectDetails([]);
+    }
+  }, [currentUser]);
+  ///////////////////////////////////////////////////////
 
   function onSaveProjectDetailsHandler(inputProjectDetails) {
-    const createProject = async () => {
-      try {
-        let projectData = {
-          projectName: inputProjectDetails.projectName,
-          startingDate: inputProjectDetails.startingDate,
-          deadLine: inputProjectDetails.deadLine,
-        };
-
-        // Add the project data to the "projects" collection in Firestore
-
-        const docRef = await addDoc(
-          collection(db, `users/${userId}/projects`),
-          projectData
-        );
-
-        const projectDataWithId = {
-          ...projectData,
-          projectId: docRef.id,
-        };
-        const projectDocRef = await doc(
-          db,
-          `users/${userId}/projects/${docRef.id}`
-        );
-
-        setDoc(projectDocRef, projectDataWithId);
-
-        // setProjectId(docRef.id);
-        setUpdateCurrentProjects(docRef.id);
-        setRerender(rerender + 1);
-
-        // console.log("Project ID:", docRef.id);
-      } catch (error) {
-        console.error("Error creating project:", error);
-      }
+    let projectData = {
+      projectName: inputProjectDetails.projectName,
+      startingDate: inputProjectDetails.startingDate,
+      deadLine: inputProjectDetails.deadLine,
     };
-    createProject();
+
+    // setRerender(rerender + 1);
+
+    addTodo(projectData);
   }
 
   return (
@@ -112,7 +116,7 @@ function ProjectPage() {
       <ProjectAdd onSaveProjectDetails={onSaveProjectDetailsHandler} />
       <ProjectField
         projectDetails={projectDetails}
-        deleteProject={deleteProject}
+        deleteProject={deleteTodo}
       />
       {/* <button onClick={createProject}>Create Project</button> */}
     </div>

@@ -7,13 +7,18 @@ import App from "./App";
 import "./index.scss";
 import { UserProvider } from "./contexts/context";
 
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
+import { apiSlice } from "../src/utils/firebase/firebase-utils";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter basename="/GoTask">
-      <UserProvider>
-        <App />
-      </UserProvider>
+      <ApiProvider api={apiSlice}>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </ApiProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

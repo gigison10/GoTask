@@ -19,10 +19,6 @@ import {
   setDoc,
   collection,
   addDoc,
-  query,
-  orderBy,
-  limit,
-  FieldValue,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -36,38 +32,22 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-
 export const firestore = getFirestore();
-//////////////////
-const now = new Date();
-const year = now.getFullYear();
-const month = String(now.getMonth() + 1).padStart(2, "0");
-const day = String(now.getDate()).padStart(2, "0");
-const hours = String(now.getHours()).padStart(2, "0");
-const minutes = String(now.getMinutes()).padStart(2, "0");
-const seconds = String(now.getSeconds()).padStart(2, "0");
-const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-///////////////////////////////////////////////
-
-/////////////////////////////////////////////////
+//////////////////////////////
 export const auth = getAuth();
 export const db = getFirestore();
-let userId = "";
+/////////////////////////////////
 
-/////////////////////
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
-// console.log(auth);
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
-// console.log(auth);
 
 //////////////////////////////////////////////////
-
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
@@ -75,10 +55,6 @@ export const createUserDocumentFromAuth = async (
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
-  // console.log(userSnapshot);
-  // console.log(userSnapshot.exists());
-
-  // user data does not exists
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
@@ -96,7 +72,6 @@ export const createUserDocumentFromAuth = async (
     return userDocRef;
   }
 };
-
 ///////////////////////////////////////////////
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -114,52 +89,25 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
 
-// const currentUserId = users.auth().currentUser.uid;
-// console.log(currentUserId);
-
-///////////// projects import export  ///////////////////
-export let projects = [];
-
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    userId = user.uid;
-
+    localStorage.setItem("userId", user.uid);
     try {
       // console.log(userId);
     } catch (err) {
       console.log(err.message);
     }
   } else {
-    projects = [];
+    // console.log("no suer");
+    localStorage.removeItem("userId");
     // console.log("no user logged in");
   }
 });
 
-export const updateProjects = async (e) => {
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      userId = user.uid;
-      const userDocRef = doc(db, "users", userId);
-      const projectsRef = collection(userDocRef, "projects");
-      const projectDocRef = doc(projectsRef, e);
-      try {
-        const snapshot = await getDoc(projectDocRef); // Use getDoc instead of getDocs for a single document
-        if (snapshot.exists()) {
-          projects.push(snapshot.data());
-        }
-      } catch (err) {
-        console.log(err.message);
-      }
-    } else {
-      projects = [];
-    }
-  });
-};
-
-//////////////////////////////////
-
+/////////////////////////////////////////////
 const apiEndpoint =
   "https://firestore.googleapis.com/v1/projects/gotask-973a8/databases/(default)/documents/users/";
+///////////////////////////////////////////////////////////////////
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -168,15 +116,19 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getTodos: builder.query({
       query: () => {
-        console.log("get works");
-        return `/${userId}/projects?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`;
+        // console.log("get works", userId);
+        return `${localStorage.getItem(
+          "userId"
+        )}/projects?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`;
       },
       // serializeQueryArgs: ({ getTodos }) => {
       //   return getTodos;
       // },
+      // staleTime: 500, // disable cachings
       providesTags: [
         { type: "Todos", id: "onDetele" },
         { type: "Todos", id: "onLoad" },
+        { type: "Todos", id: "onUpdate" },
       ],
       // merge: (currentCache, newItems) => {
       //   currentCache.push(...newItems);
@@ -184,17 +136,17 @@ export const apiSlice = createApi({
       // },
     }),
 
-    ////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+
     addTodo: builder.mutation({
       query: async (todo) => {
         let projectData = {
           projectName: todo.projectName,
           deadLine: todo.deadLine,
           startingDate: todo.startingDate,
-          createdAt: formattedDate,
         };
         const docRef = await addDoc(
-          collection(db, `users/${userId}/projects`),
+          collection(db, `users/${localStorage.getItem("userId")}/projects`),
           projectData
         );
 
@@ -204,7 +156,7 @@ export const apiSlice = createApi({
         };
         const projectDocRef = await doc(
           db,
-          `users/${userId}/projects/${docRef.id}`
+          `users/${localStorage.getItem("userId")}/projects/${docRef.id}`
         );
         setDoc(projectDocRef, projectDataWithId);
       },
@@ -212,20 +164,37 @@ export const apiSlice = createApi({
     }),
 
     /////////////////////////////////////////////
+
     updateTodo: builder.mutation({
-      query: (todo) => ({
-        url: `/todos/${todo.id}`,
-        method: "PATCH",
-        body: todo,
-      }),
-      invalidatesTags: ["Todos"],
+      query: ({ id, projectName, deadLine, startingDate }) => (
+        console.log("update work"),
+        {
+          url: `/${localStorage.getItem(
+            "userId"
+          )}/projects/${id}?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`,
+          method: "PATCH",
+          body: {
+            fields: {
+              projectName: { stringValue: projectName },
+              deadLine: { stringValue: deadLine },
+              startingDate: { stringValue: startingDate },
+              projectId: { stringValue: id },
+            },
+          },
+        }
+      ),
+      invalidatesTags: [{ type: "Todos", id: "onUpdate" }],
     }),
+
+    /////////////////////////////////////////////////
 
     deleteTodo: builder.mutation({
       query: (id) =>
         // console.log(id),
         ({
-          url: `/${userId}/projects/${id}?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`,
+          url: `/${localStorage.getItem(
+            "userId"
+          )}/projects/${id}?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`,
           method: "DELETE",
           // body: id,
         }),

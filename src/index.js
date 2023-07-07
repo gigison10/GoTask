@@ -13,7 +13,7 @@ import { apiSlice } from "../src/utils/firebase/firebase-utils";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/GoTask">
+    <BrowserRouter basename="/gotask">
       <ApiProvider api={apiSlice}>
         <UserProvider>
           <App />

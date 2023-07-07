@@ -1,55 +1,34 @@
 import { createContext, useState, useEffect } from "react";
 import {
   onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-  projects,
-  updateProjects,
+  // createUserDocumentFromAuth,
 } from "../utils/firebase/firebase-utils.js";
-//as the actual value that i want to acces
 
 export const UserContext = createContext({
-  currentUser: null,
-  setCurrentUser: () => null,
-});
-
-export const ProjectsContext = createContext({
-  currentProject: null,
-  setCurrentProject: () => null,
-});
-
-export const updateProjectsContext = createContext({
-  setUpdateCurrentProjects: (e) => {
-    updateProjects(e);
-    // console.log("update works");
-  },
+  currentUserId: null,
+  setCurrentUserId: () => null,
 });
 
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const value = { currentUser, setCurrentUser };
-  const [currentProject, setCurrentProject] = useState(projects);
-  const projectsValue = { currentProject, setCurrentProject };
-  const [count, setCount] = useState(1);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const value = { currentUserId, setCurrentUserId };
+
+  // const [count, setCount] = useState(1);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
-        createUserDocumentFromAuth(user);
-        setCurrentProject(projects);
+        // createUserDocumentFromAuth(user);
+        setCurrentUserId(user.uid);
       } else {
-        setCurrentProject([]);
       }
-      setCurrentUser(user);
+      setCurrentUserId(user);
     });
 
     return unsubscribe;
-  }, [currentUser, projects, updateProjects]);
+  }, [currentUserId]);
 
   return (
-    <ProjectsContext.Provider value={projectsValue}>
-      <UserContext.Provider value={{ ...value }}>
-        {children}
-      </UserContext.Provider>
-    </ProjectsContext.Provider>
+    <UserContext.Provider value={{ ...value }}>{children}</UserContext.Provider>
   );
 };

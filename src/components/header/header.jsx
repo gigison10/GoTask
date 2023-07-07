@@ -1,5 +1,5 @@
 import "./header.scss";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import LogIn from "../log-in/log-in";
 import SignUp from "../sign-up/sign-up";
 import { UserContext } from "../../contexts/context";
@@ -9,8 +9,17 @@ function Header() {
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
   const formattedDate = today.toLocaleDateString("en-US", options);
+  const { currentUserId } = useContext(UserContext);
 
-  const { currentUser } = useContext(UserContext);
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    if (currentUserId) {
+      setUserEmail(currentUserId.email);
+    } else {
+      setUserEmail("");
+    }
+  }, [currentUserId]);
 
   return (
     <header>
@@ -23,10 +32,13 @@ function Header() {
       </div>
       <div>Messages</div>
       <div className="signInLogInContainer">
-        {currentUser ? (
-          <div className="log-button" type="submit" onClick={signOutUser}>
-            Sign Out
-          </div>
+        {currentUserId ? (
+          <>
+            <div className="email">{userEmail}</div>
+            <div className="log-button" type="submit" onClick={signOutUser}>
+              Sign Out
+            </div>
+          </>
         ) : (
           <>
             <LogIn />

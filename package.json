@@ -20,6 +20,8 @@
     "fs-extra": "^11.1.1",
     "google-auth-library": "^8.8.0",
     "graceful-fs": "^4.2.11",
+    "jquery": "^3.7.0",
+    "jquery-ui": "^1.13.2",
     "moment": "^2.29.4",
     "nanoid": "^4.0.2",
     "os": "^0.1.2",

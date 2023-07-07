@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/GoTask/static/css/main.205a7c1a.css",
+    "main.js": "/GoTask/static/js/main.6bd5568b.js",
+    "static/js/787.992f1ea9.chunk.js": "/GoTask/static/js/787.992f1ea9.chunk.js",
+    "static/media/Logo.png": "/GoTask/static/media/Logo.bf2203a99e36235c0ee8.png",
+    "index.html": "/GoTask/index.html",
+    "main.205a7c1a.css.map": "/GoTask/static/css/main.205a7c1a.css.map",
+    "main.6bd5568b.js.map": "/GoTask/static/js/main.6bd5568b.js.map",
+    "787.992f1ea9.chunk.js.map": "/GoTask/static/js/787.992f1ea9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.205a7c1a.css",
+    "static/js/main.6bd5568b.js"
+  ]
+}

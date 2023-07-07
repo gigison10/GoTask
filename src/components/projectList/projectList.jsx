@@ -135,8 +135,6 @@ function ProjectList(props, ref) {
           {editField(data, data.projectName, projectNameRef)}
           {editField(data, data.startingDate, projectStartingDateRef)}
           {editField(data, data.deadLine, projectDeadLineRef)}
-          {/* <h5>{data.startingDate}</h5> */}
-          {/* <h5>{data.deadLine}</h5> */}
           <h5>In progress</h5>
           <button
             className="buttonField"

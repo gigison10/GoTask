@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import {
   useGetTasksQuery,
   useAddTaskMutation,
-  useDeleteTaskMutation,
+  useDeleteTodoMutation,
   useUpdateTodoMutation,
 } from "../../utils/firebase/firebase-utils";
 
@@ -16,8 +16,8 @@ const ProjectAddTask = (props) => {
   const taskDescription = useRef("");
 
   const { data: tasks, isSuccess, refetch } = useGetTasksQuery(props.projectId);
+
   const [addTask] = useAddTaskMutation();
-  const [deleteTask] = useDeleteTaskMutation();
 
   const saveTaskDataHandler = async () => {
     const taskData = {
@@ -25,11 +25,15 @@ const ProjectAddTask = (props) => {
       taskDescription: taskDescription.current.value,
       projectId: props.projectId,
     };
-    await addTask(taskData);
+    console.log(taskData);
     refetch();
+    await addTask(taskData);
+    taskNameRef.current.value = "";
+    taskDescription.current.value = "";
   };
 
   const addTaskInputFields = () => {
+    console.log(props.projectId);
     const projectTasks = tasks.filter(
       (task) => task.taskprojectId === props.projectId
     );
@@ -40,18 +44,9 @@ const ProjectAddTask = (props) => {
           {projectTasks.map((task) => {
             return (
               <div className="taskBlock" key={task.taskId}>
-                <div className="taskBlockHeader">
-                  <h4>{task.taskName}</h4>
-                  <div
-                    onClick={() => {
-                      deleteTask(task);
-                    }}
-                  >
-                    <X></X>
-                  </div>
-                </div>
+                <h4>{task.taskName}</h4>
                 <p>{task.taskDescription}</p>
-                <h4>Send to ...</h4>
+                <h4>Send to ...</h4>;
               </div>
             );
           })}
@@ -107,7 +102,7 @@ const ProjectAddTask = (props) => {
           </header>
           <button
             onClick={() => {
-              setTaskForm((prev) => !prev);
+              setTaskForm(true);
               // addTaskInputFields();
             }}
           >

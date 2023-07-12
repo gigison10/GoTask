@@ -1,4 +1,11 @@
 import "./projectList.scss";
+import ProjectAddTask from "../projectAddTask/projectAddTask";
+import {
+  DeleteButton,
+  CompleteButton,
+  EditButton,
+  CheckButton,
+} from "../../assets/icons.jsx";
 import {
   Fragment,
   useState,
@@ -23,13 +30,11 @@ function ProjectList(props, ref) {
   const projectNameRef = useRef("");
   const projectStartingDateRef = useRef("");
   const projectDeadLineRef = useRef("");
+
   //////////////////////////////////
   const {
     data: projects,
-    isLoading,
     isSuccess,
-    isError,
-    error,
     refetch,
   } = useGetTodosQuery(currentUserId, {
     skip: !currentUserId, // Enable the query when userId is truthy
@@ -38,9 +43,10 @@ function ProjectList(props, ref) {
   const [updateTodo] = useUpdateTodoMutation();
   /////////////////////////////////////////////
 
+  // console.log(projects);
+
   useEffect(() => {
     if (currentUserId && projects && isSuccess) {
-      // setUserId(currentUserId.uid);
       const arr = projects?.documents?.map((project) => {
         const { deadLine, projectId, projectName, startingDate } =
           project?.fields || {};
@@ -105,12 +111,11 @@ function ProjectList(props, ref) {
         startingDate: projectStartingDateRef.current.value,
       })
         .then((response) => {
-          // Handle the success response if needed
-          console.log(response);
+          // console.log(response);
           setEditProjectId(null);
         })
         .catch((error) => {
-          // Handle the error if needed
+          console.log("editing", error);
         });
       reFetch();
     } else {
@@ -123,22 +128,8 @@ function ProjectList(props, ref) {
     <Fragment>
       {projectDetails?.map((data) => (
         <div className="project-field" key={data.projectId}>
-          <div type="submit" className="checkBlock">
-            <input className="check" type="checkbox" />
-            <button
-              className="deteButton"
-              onClick={() => deleteTodo(data.projectId)}
-            >
-              delete
-            </button>
-          </div>
-          {editField(data, data.projectName, projectNameRef)}
-          {editField(data, data.startingDate, projectStartingDateRef)}
-          {editField(data, data.deadLine, projectDeadLineRef)}
-          {/* <h5>{data.startingDate}</h5> */}
-          {/* <h5>{data.deadLine}</h5> */}
-          <h5>In progress</h5>
           <button
+            type="button"
             className="buttonField"
             value={data.id}
             onClick={() => {
@@ -149,9 +140,24 @@ function ProjectList(props, ref) {
               }
             }}
           >
-            {isEditing(data.projectId) ? "Save" : "Edit"}
+            {isEditing(data.projectId) ? <CheckButton /> : <EditButton />}
           </button>
-          <button className="buttonField">Mark as complete</button>
+          {editField(data, data.projectName, projectNameRef)}
+          <ProjectAddTask projectId={data.projectId} />
+
+          {editField(data, data.startingDate, projectStartingDateRef)}
+          {editField(data, data.deadLine, projectDeadLineRef)}
+          <div className="projectFiledButtonsBlock">
+            <button
+              className="buttonField"
+              onClick={() => deleteTodo(data.projectId)}
+            >
+              <DeleteButton />
+            </button>
+            <button className="buttonField">
+              <CompleteButton />
+            </button>
+          </div>
         </div>
       ))}
     </Fragment>

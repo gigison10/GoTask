@@ -124,7 +124,7 @@ export const apiSlice = createApi({
       // serializeQueryArgs: ({ getTodos }) => {
       //   return getTodos;
       // },
-      // staleTime: 500, // disable cachings
+      // staleTime: 500, // disable caching
       providesTags: [
         { type: "Todos", id: "onDetele" },
         { type: "Todos", id: "onLoad" },
@@ -149,7 +149,6 @@ export const apiSlice = createApi({
           collection(db, `users/${localStorage.getItem("userId")}/projects`),
           projectData
         );
-
         const projectDataWithId = {
           ...projectData,
           projectId: docRef.id,
@@ -165,10 +164,83 @@ export const apiSlice = createApi({
 
     /////////////////////////////////////////////
 
+    getTasks: builder.query({
+      async queryFn() {
+        const userId = localStorage.getItem("userId");
+        const userProjectsRef = collection(db, "users", userId, "projects");
+        const userProjectsSnapshot = await getDocs(userProjectsRef);
+
+        const tasks = [];
+
+        for (const projectDoc of userProjectsSnapshot.docs) {
+          const projectId = projectDoc.id;
+          const tasksRef = collection(
+            db,
+            "users",
+            userId,
+            "projects",
+            projectId,
+            "tasks"
+          );
+          const tasksSnapshot = await getDocs(tasksRef);
+
+          tasksSnapshot.forEach((taskDoc) => {
+            tasks.push(taskDoc.data());
+          });
+        }
+
+        return {
+          data: tasks,
+        };
+      },
+
+      providesTags: [
+        // { type: "Todos", id: "onDetele" },
+        // { type: "Todos", id: "onLoad" },
+        // { type: "Todos", id: "onUpdate" },
+      ],
+    }),
+
+    /////////////////////////////////////////////
+
+    addTask: builder.mutation({
+      query: async (task) => {
+        let taskData = {
+          taskName: task.taskName,
+          taskDescription: task.taskDescription,
+          taskprojectId: task.projectId,
+        };
+        const docRef = await addDoc(
+          collection(
+            db,
+            `users/${localStorage.getItem("userId")}/projects/${
+              task.projectId
+            }/tasks`
+          ),
+          taskData
+        );
+
+        const taskDataWithId = {
+          ...taskData,
+          taskId: docRef.id,
+        };
+        const taskDocRef = await doc(
+          db,
+          `users/${localStorage.getItem("userId")}/projects/${
+            task.projectId
+          }/tasks/${docRef.id}`
+        );
+        setDoc(taskDocRef, taskDataWithId);
+      },
+      invalidatesTags: [{ type: "Task", id: "onLoad" }],
+    }),
+
+    /////////////////////////////////////////////
+
     updateTodo: builder.mutation({
-      query: ({ id, projectName, deadLine, startingDate }) => (
-        console.log("update work"),
-        {
+      query: ({ id, projectName, deadLine, startingDate }) =>
+        // console.log("update work"),
+        ({
           url: `/${localStorage.getItem(
             "userId"
           )}/projects/${id}?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`,
@@ -181,8 +253,7 @@ export const apiSlice = createApi({
               projectId: { stringValue: id },
             },
           },
-        }
-      ),
+        }),
       invalidatesTags: [{ type: "Todos", id: "onUpdate" }],
     }),
 
@@ -206,6 +277,8 @@ export const apiSlice = createApi({
 export const {
   useGetTodosQuery,
   useAddTodoMutation,
+  useGetTasksQuery,
+  useAddTaskMutation,
   useUpdateTodoMutation,
   useDeleteTodoMutation,
 } = apiSlice;

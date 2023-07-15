@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/izmaneugen89/gotask/static/css/main.9b382356.css",
-    "main.js": "/izmaneugen89/gotask/static/js/main.6111c471.js",
-    "static/js/787.992f1ea9.chunk.js": "/izmaneugen89/gotask/static/js/787.992f1ea9.chunk.js",
-    "static/media/Logo.png": "/izmaneugen89/gotask/static/media/Logo.bf2203a99e36235c0ee8.png",
-    "index.html": "/izmaneugen89/gotask/index.html",
-    "main.9b382356.css.map": "/izmaneugen89/gotask/static/css/main.9b382356.css.map",
-    "main.6111c471.js.map": "/izmaneugen89/gotask/static/js/main.6111c471.js.map",
-    "787.992f1ea9.chunk.js.map": "/izmaneugen89/gotask/static/js/787.992f1ea9.chunk.js.map"
+    "main.css": "/gigison10/GoTask/static/css/main.828aa828.css",
+    "main.js": "/gigison10/GoTask/static/js/main.46f273c2.js",
+    "static/js/787.992f1ea9.chunk.js": "/gigison10/GoTask/static/js/787.992f1ea9.chunk.js",
+    "static/media/Logo.png": "/gigison10/GoTask/static/media/Logo.bf2203a99e36235c0ee8.png",
+    "index.html": "/gigison10/GoTask/index.html",
+    "main.828aa828.css.map": "/gigison10/GoTask/static/css/main.828aa828.css.map",
+    "main.46f273c2.js.map": "/gigison10/GoTask/static/js/main.46f273c2.js.map",
+    "787.992f1ea9.chunk.js.map": "/gigison10/GoTask/static/js/787.992f1ea9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b382356.css",
-    "static/js/main.6111c471.js"
+    "static/css/main.828aa828.css",
+    "static/js/main.46f273c2.js"
   ]
 }

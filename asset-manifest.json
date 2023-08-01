@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/GoTask/static/css/main.90ba29c1.css",
-    "main.js": "/GoTask/static/js/main.7318e0c9.js",
+    "main.css": "/GoTask/static/css/main.08c1d926.css",
+    "main.js": "/GoTask/static/js/main.f3b6b8b6.js",
     "static/js/787.992f1ea9.chunk.js": "/GoTask/static/js/787.992f1ea9.chunk.js",
     "static/media/Logo.png": "/GoTask/static/media/Logo.bf2203a99e36235c0ee8.png",
     "index.html": "/GoTask/index.html",
-    "main.90ba29c1.css.map": "/GoTask/static/css/main.90ba29c1.css.map",
-    "main.7318e0c9.js.map": "/GoTask/static/js/main.7318e0c9.js.map",
+    "main.08c1d926.css.map": "/GoTask/static/css/main.08c1d926.css.map",
+    "main.f3b6b8b6.js.map": "/GoTask/static/js/main.f3b6b8b6.js.map",
     "787.992f1ea9.chunk.js.map": "/GoTask/static/js/787.992f1ea9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.90ba29c1.css",
-    "static/js/main.7318e0c9.js"
+    "static/css/main.08c1d926.css",
+    "static/js/main.f3b6b8b6.js"
   ]
 }

@@ -4,7 +4,11 @@ import { useState, useRef } from "react";
 import {
   useGetTasksQuery,
   useAddTaskMutation,
+<<<<<<< HEAD
   useDeleteTodoMutation,
+=======
+  useDeleteTaskMutation,
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
   useUpdateTodoMutation,
 } from "../../utils/firebase/firebase-utils";
 
@@ -16,8 +20,13 @@ const ProjectAddTask = (props) => {
   const taskDescription = useRef("");
 
   const { data: tasks, isSuccess, refetch } = useGetTasksQuery(props.projectId);
+<<<<<<< HEAD
 
   const [addTask] = useAddTaskMutation();
+=======
+  const [addTask] = useAddTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 
   const saveTaskDataHandler = async () => {
     const taskData = {
@@ -25,6 +34,7 @@ const ProjectAddTask = (props) => {
       taskDescription: taskDescription.current.value,
       projectId: props.projectId,
     };
+<<<<<<< HEAD
     console.log(taskData);
     refetch();
     await addTask(taskData);
@@ -34,6 +44,13 @@ const ProjectAddTask = (props) => {
 
   const addTaskInputFields = () => {
     console.log(props.projectId);
+=======
+    await addTask(taskData);
+    refetch();
+  };
+
+  const addTaskInputFields = () => {
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
     const projectTasks = tasks.filter(
       (task) => task.taskprojectId === props.projectId
     );
@@ -44,9 +61,24 @@ const ProjectAddTask = (props) => {
           {projectTasks.map((task) => {
             return (
               <div className="taskBlock" key={task.taskId}>
+<<<<<<< HEAD
                 <h4>{task.taskName}</h4>
                 <p>{task.taskDescription}</p>
                 <h4>Send to ...</h4>;
+=======
+                <div className="taskBlockHeader">
+                  <h4>{task.taskName}</h4>
+                  <div
+                    onClick={() => {
+                      deleteTask(task);
+                    }}
+                  >
+                    <X></X>
+                  </div>
+                </div>
+                <p>{task.taskDescription}</p>
+                <h4>Send to ...</h4>
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
               </div>
             );
           })}
@@ -102,7 +134,11 @@ const ProjectAddTask = (props) => {
           </header>
           <button
             onClick={() => {
+<<<<<<< HEAD
               setTaskForm(true);
+=======
+              setTaskForm((prev) => !prev);
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
               // addTaskInputFields();
             }}
           >

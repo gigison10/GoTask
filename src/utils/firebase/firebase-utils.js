@@ -124,7 +124,11 @@ export const apiSlice = createApi({
       // serializeQueryArgs: ({ getTodos }) => {
       //   return getTodos;
       // },
+<<<<<<< HEAD
       // staleTime: 500, // disable caching
+=======
+      // staleTime: 500, // disable cachings
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
       providesTags: [
         { type: "Todos", id: "onDetele" },
         { type: "Todos", id: "onLoad" },
@@ -149,6 +153,10 @@ export const apiSlice = createApi({
           collection(db, `users/${localStorage.getItem("userId")}/projects`),
           projectData
         );
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
         const projectDataWithId = {
           ...projectData,
           projectId: docRef.id,
@@ -164,6 +172,7 @@ export const apiSlice = createApi({
 
     /////////////////////////////////////////////
 
+<<<<<<< HEAD
     getTasks: builder.query({
       async queryFn() {
         const userId = localStorage.getItem("userId");
@@ -241,6 +250,12 @@ export const apiSlice = createApi({
       query: ({ id, projectName, deadLine, startingDate }) =>
         // console.log("update work"),
         ({
+=======
+    updateTodo: builder.mutation({
+      query: ({ id, projectName, deadLine, startingDate }) => (
+        console.log("update work"),
+        {
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
           url: `/${localStorage.getItem(
             "userId"
           )}/projects/${id}?key=AIzaSyDg0a3RsAo0iIaAJzwTjd7vHvGLWXqzZ00`,
@@ -253,7 +268,12 @@ export const apiSlice = createApi({
               projectId: { stringValue: id },
             },
           },
+<<<<<<< HEAD
         }),
+=======
+        }
+      ),
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
       invalidatesTags: [{ type: "Todos", id: "onUpdate" }],
     }),
 
@@ -277,8 +297,11 @@ export const apiSlice = createApi({
 export const {
   useGetTodosQuery,
   useAddTodoMutation,
+<<<<<<< HEAD
   useGetTasksQuery,
   useAddTaskMutation,
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
   useUpdateTodoMutation,
   useDeleteTodoMutation,
 } = apiSlice;

@@ -1,4 +1,5 @@
 import "./projectList.scss";
+<<<<<<< HEAD
 import ProjectAddTask from "../projectAddTask/projectAddTask";
 import {
   DeleteButton,
@@ -6,6 +7,8 @@ import {
   EditButton,
   CheckButton,
 } from "../../assets/icons.jsx";
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 import {
   Fragment,
   useState,
@@ -30,11 +33,21 @@ function ProjectList(props, ref) {
   const projectNameRef = useRef("");
   const projectStartingDateRef = useRef("");
   const projectDeadLineRef = useRef("");
+<<<<<<< HEAD
 
   //////////////////////////////////
   const {
     data: projects,
     isSuccess,
+=======
+  //////////////////////////////////
+  const {
+    data: projects,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
     refetch,
   } = useGetTodosQuery(currentUserId, {
     skip: !currentUserId, // Enable the query when userId is truthy
@@ -43,10 +56,16 @@ function ProjectList(props, ref) {
   const [updateTodo] = useUpdateTodoMutation();
   /////////////////////////////////////////////
 
+<<<<<<< HEAD
   // console.log(projects);
 
   useEffect(() => {
     if (currentUserId && projects && isSuccess) {
+=======
+  useEffect(() => {
+    if (currentUserId && projects && isSuccess) {
+      // setUserId(currentUserId.uid);
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
       const arr = projects?.documents?.map((project) => {
         const { deadLine, projectId, projectName, startingDate } =
           project?.fields || {};
@@ -111,11 +130,20 @@ function ProjectList(props, ref) {
         startingDate: projectStartingDateRef.current.value,
       })
         .then((response) => {
+<<<<<<< HEAD
           // console.log(response);
           setEditProjectId(null);
         })
         .catch((error) => {
           console.log("editing", error);
+=======
+          // Handle the success response if needed
+          console.log(response);
+          setEditProjectId(null);
+        })
+        .catch((error) => {
+          // Handle the error if needed
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
         });
       reFetch();
     } else {
@@ -128,8 +156,27 @@ function ProjectList(props, ref) {
     <Fragment>
       {projectDetails?.map((data) => (
         <div className="project-field" key={data.projectId}>
+<<<<<<< HEAD
           <button
             type="button"
+=======
+          <div type="submit" className="checkBlock">
+            <input className="check" type="checkbox" />
+            <button
+              className="deteButton"
+              onClick={() => deleteTodo(data.projectId)}
+            >
+              delete
+            </button>
+          </div>
+          {editField(data, data.projectName, projectNameRef)}
+          {editField(data, data.startingDate, projectStartingDateRef)}
+          {editField(data, data.deadLine, projectDeadLineRef)}
+          {/* <h5>{data.startingDate}</h5> */}
+          {/* <h5>{data.deadLine}</h5> */}
+          <h5>In progress</h5>
+          <button
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
             className="buttonField"
             value={data.id}
             onClick={() => {
@@ -140,6 +187,7 @@ function ProjectList(props, ref) {
               }
             }}
           >
+<<<<<<< HEAD
             {isEditing(data.projectId) ? <CheckButton /> : <EditButton />}
           </button>
           {editField(data, data.projectName, projectNameRef)}
@@ -158,6 +206,11 @@ function ProjectList(props, ref) {
               <CompleteButton />
             </button>
           </div>
+=======
+            {isEditing(data.projectId) ? "Save" : "Edit"}
+          </button>
+          <button className="buttonField">Mark as complete</button>
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
         </div>
       ))}
     </Fragment>

@@ -6,7 +6,11 @@ import {
   useAddTaskMutation,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   useDeleteTodoMutation,
+=======
+  useDeleteTaskMutation,
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
   useDeleteTaskMutation,
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -26,8 +30,13 @@ const ProjectAddTask = (props) => {
   const { data: tasks, isSuccess, refetch } = useGetTasksQuery(props.projectId);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   const [addTask] = useAddTaskMutation();
+=======
+  const [addTask] = useAddTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
   const [addTask] = useAddTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
@@ -45,6 +54,7 @@ const ProjectAddTask = (props) => {
     };
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.log(taskData);
     refetch();
     await addTask(taskData);
@@ -57,12 +67,17 @@ const ProjectAddTask = (props) => {
 =======
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
     await addTask(taskData);
     refetch();
   };
 
   const addTaskInputFields = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -78,10 +93,13 @@ const ProjectAddTask = (props) => {
               <div className="taskBlock" key={task.taskId}>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <h4>{task.taskName}</h4>
                 <p>{task.taskDescription}</p>
                 <h4>Send to ...</h4>;
 =======
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
                 <div className="taskBlockHeader">
@@ -97,6 +115,9 @@ const ProjectAddTask = (props) => {
                 <p>{task.taskDescription}</p>
                 <h4>Send to ...</h4>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -157,7 +178,11 @@ const ProjectAddTask = (props) => {
             onClick={() => {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
               setTaskForm(true);
+=======
+              setTaskForm((prev) => !prev);
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
               setTaskForm((prev) => !prev);
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631

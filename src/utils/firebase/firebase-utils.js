@@ -126,7 +126,11 @@ export const apiSlice = createApi({
       // },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       // staleTime: 500, // disable caching
+=======
+      // staleTime: 500, // disable cachings
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
       // staleTime: 500, // disable cachings
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -159,6 +163,10 @@ export const apiSlice = createApi({
         );
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -180,6 +188,7 @@ export const apiSlice = createApi({
 
     /////////////////////////////////////////////
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     getTasks: builder.query({
@@ -262,11 +271,16 @@ export const apiSlice = createApi({
 =======
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
     updateTodo: builder.mutation({
       query: ({ id, projectName, deadLine, startingDate }) => (
         console.log("update work"),
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -284,7 +298,12 @@ export const apiSlice = createApi({
           },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         }),
+=======
+        }
+      ),
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
         }
       ),
@@ -318,8 +337,11 @@ export const {
   useAddTodoMutation,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   useGetTasksQuery,
   useAddTaskMutation,
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======

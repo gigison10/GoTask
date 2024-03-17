@@ -125,7 +125,11 @@ export const apiSlice = createApi({
       //   return getTodos;
       // },
 <<<<<<< HEAD
+<<<<<<< HEAD
       // staleTime: 500, // disable caching
+=======
+      // staleTime: 500, // disable cachings
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
       // staleTime: 500, // disable cachings
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -154,6 +158,10 @@ export const apiSlice = createApi({
           projectData
         );
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
@@ -172,6 +180,7 @@ export const apiSlice = createApi({
 
     /////////////////////////////////////////////
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     getTasks: builder.query({
       async queryFn() {
@@ -251,10 +260,15 @@ export const apiSlice = createApi({
         // console.log("update work"),
         ({
 =======
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
     updateTodo: builder.mutation({
       query: ({ id, projectName, deadLine, startingDate }) => (
         console.log("update work"),
         {
+<<<<<<< HEAD
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
           url: `/${localStorage.getItem(
             "userId"
@@ -269,7 +283,12 @@ export const apiSlice = createApi({
             },
           },
 <<<<<<< HEAD
+<<<<<<< HEAD
         }),
+=======
+        }
+      ),
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
         }
       ),
@@ -298,8 +317,11 @@ export const {
   useGetTodosQuery,
   useAddTodoMutation,
 <<<<<<< HEAD
+<<<<<<< HEAD
   useGetTasksQuery,
   useAddTaskMutation,
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
   useUpdateTodoMutation,

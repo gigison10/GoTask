@@ -1,5 +1,6 @@
 import "./projectList.scss";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ProjectAddTask from "../projectAddTask/projectAddTask";
 import {
   DeleteButton,
@@ -7,6 +8,8 @@ import {
   EditButton,
   CheckButton,
 } from "../../assets/icons.jsx";
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 import {
@@ -34,12 +37,15 @@ function ProjectList(props, ref) {
   const projectStartingDateRef = useRef("");
   const projectDeadLineRef = useRef("");
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   //////////////////////////////////
   const {
     data: projects,
     isSuccess,
 =======
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
   //////////////////////////////////
   const {
     data: projects,
@@ -47,6 +53,9 @@ function ProjectList(props, ref) {
     isSuccess,
     isError,
     error,
+<<<<<<< HEAD
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
     refetch,
   } = useGetTodosQuery(currentUserId, {
@@ -57,10 +66,16 @@ function ProjectList(props, ref) {
   /////////////////////////////////////////////
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   // console.log(projects);
 
   useEffect(() => {
     if (currentUserId && projects && isSuccess) {
+=======
+  useEffect(() => {
+    if (currentUserId && projects && isSuccess) {
+      // setUserId(currentUserId.uid);
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
   useEffect(() => {
     if (currentUserId && projects && isSuccess) {
@@ -131,18 +146,24 @@ function ProjectList(props, ref) {
       })
         .then((response) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
           // console.log(response);
           setEditProjectId(null);
         })
         .catch((error) => {
           console.log("editing", error);
 =======
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
           // Handle the success response if needed
           console.log(response);
           setEditProjectId(null);
         })
         .catch((error) => {
           // Handle the error if needed
+<<<<<<< HEAD
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
         });
       reFetch();
@@ -157,9 +178,12 @@ function ProjectList(props, ref) {
       {projectDetails?.map((data) => (
         <div className="project-field" key={data.projectId}>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <button
             type="button"
 =======
+=======
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
           <div type="submit" className="checkBlock">
             <input className="check" type="checkbox" />
             <button
@@ -176,6 +200,9 @@ function ProjectList(props, ref) {
           {/* <h5>{data.deadLine}</h5> */}
           <h5>In progress</h5>
           <button
+<<<<<<< HEAD
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
+=======
 >>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
             className="buttonField"
             value={data.id}
@@ -187,6 +214,7 @@ function ProjectList(props, ref) {
               }
             }}
           >
+<<<<<<< HEAD
 <<<<<<< HEAD
             {isEditing(data.projectId) ? <CheckButton /> : <EditButton />}
           </button>
@@ -206,6 +234,11 @@ function ProjectList(props, ref) {
               <CompleteButton />
             </button>
           </div>
+=======
+            {isEditing(data.projectId) ? "Save" : "Edit"}
+          </button>
+          <button className="buttonField">Mark as complete</button>
+>>>>>>> ea9716577c67a6cf0b16b19e0fbbedda11051631
 =======
             {isEditing(data.projectId) ? "Save" : "Edit"}
           </button>
